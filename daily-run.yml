@@ -2,7 +2,7 @@ name: Run Daily Python Scraper
 
 on:
   schedule:
-    - cron: '0 2 * * *'  # Har din subah 7:30 AM IST (2:00 AM UTC)
+    - cron: '*/1 * * * *'  # Run every 1 minute
   workflow_dispatch:  # Manual run bhi allow karega
 
 jobs:
