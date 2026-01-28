@@ -38,12 +38,54 @@ $title_data = array(
 <!-- Start Single POST -->
 <div id="single" class="dtsingle">
 
+<?php
+// Get the current post ID
+$post_id = get_the_ID();
+
+// Get meta values
+$imdb_id = get_post_meta($post_id, 'ids', true);
+$tmdb_id = get_post_meta($post_id, 'idtmdb', true);
+$trailer_id = get_post_meta($post_id, 'youtube_id', true);
+
+// Seasons are TV type
+$content_type = 'tv';
+
+// Get total seasons and current season
+$total_seasons = 0;
+$current_season = doo_isset($postmeta, 'temporada');
+$tvshow_id = doo_get_tvpermalink($ids);
+if ($tvshow_id) {
+    $seasons = get_the_terms($tvshow_id, 'seasons');
+    if ($seasons && !is_wp_error($seasons)) {
+        $total_seasons = count($seasons);
+    }
+    
+    $seasons_meta = get_post_meta($tvshow_id, 'number_of_seasons', true);
+    if ($seasons_meta) {
+        $total_seasons = $seasons_meta;
+    }
+}
+?>
+
+<div class="movie-meta-data" 
+     data-tmdb="<?php echo esc_attr($tmdb_id); ?>" 
+     data-type="<?php echo esc_attr($content_type); ?>" 
+     data-imdb="<?php echo esc_attr($imdb_id); ?>" 
+     data-total-seasons="<?php echo esc_attr($total_seasons); ?>" 
+     data-season="<?php echo esc_attr($current_season); ?>"
+     data-trailer="<?php echo esc_attr($trailer_id); ?>"></div>
+
     <!-- Start Post -->
     <?php if (have_posts()) :while (have_posts()) : the_post(); ?>
     <div class="content <?php echo $sidebar; ?>">
 
         <!-- Views Counter -->
         <?php DooPlayViews::Meta($post->ID); ?>
+
+        <!-- Custom Video Player -->
+        <?php doo_custom_video_player($post->ID, 'tv'); ?>
+
+        <div id="dktczn-player" class="dktczn-player-container"></div>
 
         <!-- Heading Info Season -->
         <div class="sheader">

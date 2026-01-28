@@ -84,6 +84,10 @@ if ($content_type == 'tv') {
 	<!-- Start Post -->
     <?php if(have_posts()): while(have_posts()): the_post(); ?>
     <div class="content <?php echo $sidebar; ?>">
+
+        <!-- Custom Video Player -->
+        <?php doo_custom_video_player($post->ID, 'tv'); ?>
+
 <div id="dktczn-player" class="dktczn-player-container"></div>
 <!-- Download Accordion Section for TV Shows -->
 <div class="download-accordion" style="margin: 20px auto;">

@@ -93,6 +93,14 @@ class DDbmoviesMetaboxes extends DDbmoviesHelpers{
 				'double' => null,
 	        ),
 	        array(
+	            'id'    => 'custom_video_url',
+	            'type'  => 'text',
+	            'label' => __d('Custom Video URL'),
+	            'desc'  => __d('Add custom video URL (MP4, iframe, or embed link)'),
+	            'fdesc' => __d('If added, this will play instead of TMDB servers'),
+				'double' => null,
+	        ),
+	        array(
 	            'type'    => 'heading',
 	            'colspan' => 2,
 	            'text'    => __d('IMDb.com data')
@@ -257,6 +265,13 @@ class DDbmoviesMetaboxes extends DDbmoviesHelpers{
 	            'fdesc' => '[id_video_youtube]'
 	        ),
 	        array(
+	            'id'    => 'custom_video_url',
+	            'type'  => 'text',
+	            'label' => __d('Custom Video URL'),
+	            'desc'  => __d('Add custom video URL (MP4, iframe, or embed link)'),
+	            'fdesc' => __d('If added, this will play instead of TMDB servers')
+	        ),
+	        array(
 	            'type'    => 'heading',
 	            'colspan' => 2,
 	            'text'    => __d('More data')
@@ -410,6 +425,13 @@ class DDbmoviesMetaboxes extends DDbmoviesHelpers{
 	            'rows'   => 5,
 	            'label'  => __d('Backdrops'),
 	            'desc'   => __d('Place each image url below another')
+	        ),
+	        array(
+	            'id'    => 'custom_video_url',
+	            'type'  => 'text',
+	            'label' => __d('Custom Video URL'),
+	            'desc'  => __d('Add custom video URL (MP4, iframe, or embed link)'),
+	            'fdesc' => __d('If added, this will play instead of TMDB servers')
 	        ),
 	        array(
 	            'id'    => 'air_date',

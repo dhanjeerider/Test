@@ -87,6 +87,10 @@ if ($content_type == 'tv') {
 
         <!-- Views Counter -->
         <?php DooPlayViews::Meta($post->ID); ?>
+
+        <!-- Custom Video Player -->
+        <?php doo_custom_video_player($post->ID, 'movie'); ?>
+
 <div id="dktczn-player" class="dktczn-player-container"></div>
 
         <!-- Regular Player and Player Options --><div class="dl-wrap">

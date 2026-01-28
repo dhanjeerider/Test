@@ -476,6 +476,18 @@ class TMDBPlayer {
     const mediaDataEl = document.querySelector('.movie-meta-data');  
     if (!mediaDataEl) return null;  
   
+    // Get season and episode from data attributes if available (for episodes/seasons)
+    const seasonAttr = mediaDataEl.getAttribute('data-season');
+    const episodeAttr = mediaDataEl.getAttribute('data-episode');
+    
+    // Set current season and episode if provided in data attributes
+    if (seasonAttr && this.playerMode === 'tv') {
+      this.currentSeason = parseInt(seasonAttr);
+    }
+    if (episodeAttr && this.playerMode === 'tv') {
+      this.currentEpisode = parseInt(episodeAttr);
+    }
+  
     return {  
       tmdb_id: mediaDataEl.getAttribute('data-tmdb'),  
       type: mediaDataEl.getAttribute('data-type'),  
