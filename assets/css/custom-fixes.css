@@ -1,0 +1,250 @@
+.download-accordion {
+    max-width: 450px;
+    margin: 20px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    background: transparent;
+    box-shadow: 0 2px 8px rgb(16 16 16 / 46%);
+}
+
+.download-accordion-btn {
+    max-width: 450px;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #072ca3 0%, #2874d8 100%);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.download-accordion-btn:hover {
+    background: linear-gradient(135deg, #2874d8 0%, #408bea 100%);
+    box-shadow: 0 4px 12px rgba(64, 139, 234, 0.3);
+}
+
+.download-accordion-btn .icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.download-accordion-btn .arrow {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.download-accordion-btn.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* Accordion Content */
+.download-accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: unset;
+}
+
+.download-accordion-content.active {
+    max-height: 450px;
+}
+
+.download-accordion-inner {
+    padding: 20px;
+}
+
+/* Download Links List */
+.download-links-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.download-links-list li {
+    margin-bottom: 12px;
+}
+
+.download-link-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: #fff;
+    border-radius: 6px;
+    background: linear-gradient(45deg, black, #08e962);
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    text-align: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 17px;
+    font-family: snas-serif;
+}
+.download-link-item:hover {
+    transform: translateX(5px);background:unset;
+    box-shadow: 0 2px 8px rgba(64, 139, 234, 0.15);
+}
+
+.download-link-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.download-link-icon {
+    width: 40px;
+    height: 40px;
+    background: #408bea;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.download-link-details {
+    flex: 1;
+}
+
+.download-link-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #222d34;
+    margin-bottom: 3px;
+}
+
+.download-link-meta {
+    font-size: 12px;
+    color: #7488a7;
+}
+
+.download-link-arrow {
+    color: #408bea;
+    font-size: 20px;
+}
+
+/* Episode Download Button */
+.episode-download-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.episode-download-btn:hover {
+    background: linear-gradient(135deg, #45a049 0%, #4caf50 100%);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.episode-download-btn i {
+    margin-right: 8px;
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+    .download-accordion-btn {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    .download-link-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .download-link-info {
+        margin-bottom: 10px;
+    }
+    
+    .download-link-arrow {
+        align-self: flex-end;
+    }
+}
+
+/* Dark Theme Support */
+.dark-theme .download-accordion,
+body.dark .download-accordion {
+   
+    border-color: #408bea;
+}
+
+.dark-theme .download-accordion-content,
+body.dark .download-accordion-content {
+    background: transparent;
+}
+
+
+/* Loading State */
+.download-accordion-btn.loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.download-accordion-btn.loading .arrow {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.download-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: linear-gradient(45deg, #1a0471, #7b1fa2);
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 6px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+.download-link-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: rgb(255 255 255);
+    margin-bottom: 3px;
+}
+
+.download-link-meta {
+    font-size: 12px;
+  color: #c9c2c2;}
+
+.download-link-icon {
+    width: 40px;
+    height: 40px;
+    background: #408bea;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.download-link-arrow {
+
+    font-size: 20px;
+}
