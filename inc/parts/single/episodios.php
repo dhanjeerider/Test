@@ -94,13 +94,22 @@ $episode_num = doo_isset($postmeta, 'episodio');
 
 	<div class="content <?php echo $sidebar; ?>">
 
-        <!-- Custom Video Player -->
-        <?php doo_custom_video_player($post->ID, 'tv'); ?>
-
-        <div id="dktczn-player" class="dktczn-player-container"></div>
-
-        <!-- Regular Player and Player Options -->
-        <?php DooPlayer::viewer($post->ID, 'tv', $player, false, $player_wht, $tviews, $player_ads, $dynamicbg); ?>
+        <?php 
+        // Check if custom videos exist in repeatable_fields
+        $custom_players = get_post_meta($post->ID, 'repeatable_fields', true);
+        $custom_players = maybe_unserialize($custom_players);
+        
+        if (!empty($custom_players) && is_array($custom_players)) : 
+            // Show DooPlay native player with custom videos
+        ?>
+            <!-- DooPlay Native Player with Custom Videos -->
+            <?php DooPlayer::viewer($post->ID, 'tv', $custom_players, false, $player_wht, $tviews, $player_ads, $dynamicbg); ?>
+        <?php else : ?>
+            <!-- TMDB Auto-Embed Player (Fallback) -->
+            <div id="dktczn-player" class="dktczn-player-container"></div>
+            <!-- Regular Player and Player Options -->
+            <?php DooPlayer::viewer($post->ID, 'tv', $player, false, $player_wht, $tviews, $player_ads, $dynamicbg); ?>
+        <?php endif; ?>
         <!-- Episodes paginator -->
 		<?php require_once( DOO_DIR.'/inc/parts/single/listas/episode_navigator.php'); ?>
         <!-- Episode Info -->

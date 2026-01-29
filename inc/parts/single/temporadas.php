@@ -82,10 +82,20 @@ if ($tvshow_id) {
         <!-- Views Counter -->
         <?php DooPlayViews::Meta($post->ID); ?>
 
-        <!-- Custom Video Player -->
-        <?php doo_custom_video_player($post->ID, 'tv'); ?>
-
-        <div id="dktczn-player" class="dktczn-player-container"></div>
+        <?php 
+        // Check if custom videos exist in repeatable_fields
+        $custom_players = get_post_meta($post->ID, 'repeatable_fields', true);
+        $custom_players = maybe_unserialize($custom_players);
+        
+        if (!empty($custom_players) && is_array($custom_players)) : 
+            // Show DooPlay native player with custom videos
+        ?>
+            <!-- DooPlay Native Player with Custom Videos -->
+            <?php DooPlayer::viewer($post->ID, 'tv', $custom_players, false, 'regular', __d('0 Views'), false, false); ?>
+        <?php else : ?>
+            <!-- TMDB Auto-Embed Player (Fallback) -->
+            <div id="dktczn-player" class="dktczn-player-container"></div>
+        <?php endif; ?>
 
         <!-- Heading Info Season -->
         <div class="sheader">

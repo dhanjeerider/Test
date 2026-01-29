@@ -88,10 +88,20 @@ if ($content_type == 'tv') {
         <!-- Views Counter -->
         <?php DooPlayViews::Meta($post->ID); ?>
 
-        <!-- Custom Video Player -->
-        <?php doo_custom_video_player($post->ID, 'movie'); ?>
-
-<div id="dktczn-player" class="dktczn-player-container"></div>
+        <?php 
+        // Check if custom videos exist in repeatable_fields
+        $custom_players = get_post_meta($post->ID, 'repeatable_fields', true);
+        $custom_players = maybe_unserialize($custom_players);
+        
+        if (!empty($custom_players) && is_array($custom_players)) : 
+            // Show DooPlay native player with custom videos
+        ?>
+            <!-- DooPlay Native Player with Custom Videos -->
+            <?php DooPlayer::viewer($post->ID, 'movie', $custom_players, $trailer, $player_wht, $tviews, $player_ads, $dynamicbg); ?>
+        <?php else : ?>
+            <!-- TMDB Auto-Embed Player (Fallback) -->
+            <div id="dktczn-player" class="dktczn-player-container"></div>
+        <?php endif; ?>
 
         <!-- Regular Player and Player Options --><div class="dl-wrap">
   <!-- Download Accordion Section -->

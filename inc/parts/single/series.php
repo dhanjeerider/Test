@@ -85,10 +85,21 @@ if ($content_type == 'tv') {
     <?php if(have_posts()): while(have_posts()): the_post(); ?>
     <div class="content <?php echo $sidebar; ?>">
 
-        <!-- Custom Video Player -->
-        <?php doo_custom_video_player($post->ID, 'tv'); ?>
+        <?php 
+        // Check if custom videos exist in repeatable_fields
+        $custom_players = get_post_meta($post->ID, 'repeatable_fields', true);
+        $custom_players = maybe_unserialize($custom_players);
+        
+        if (!empty($custom_players) && is_array($custom_players)) : 
+            // Show DooPlay native player with custom videos
+        ?>
+            <!-- DooPlay Native Player with Custom Videos -->
+            <?php DooPlayer::viewer($post->ID, 'tv', $custom_players, $trailer, $player_wht, $tviews, $player_ads, $dynamicbg); ?>
+        <?php else : ?>
+            <!-- TMDB Auto-Embed Player (Fallback) -->
+            <div id="dktczn-player" class="dktczn-player-container"></div>
+        <?php endif; ?>
 
-<div id="dktczn-player" class="dktczn-player-container"></div>
 <!-- Download Accordion Section for TV Shows -->
 <div class="download-accordion" style="margin: 20px auto;">
   <button class="download-accordion-btn">
