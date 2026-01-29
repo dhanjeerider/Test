@@ -25,7 +25,7 @@ class DooPlayer{
 
         // Actions
         add_action('save_post', array($this,'save'));
-        add_action('admin_init', array($this,'add_metabox'), 1);
+        add_action('add_meta_boxes', array($this,'add_metabox'));
 
         // Ajax Actions
         add_action('wp_ajax_doo_player_ajax', array($this,'ajax'));
@@ -109,6 +109,8 @@ class DooPlayer{
      */
 	public function add_metabox(){
 		add_meta_box('repeatable-fields', __d('Video Player'), array($this,'view_metabox'), 'movies', 'normal', 'default');
+		add_meta_box('repeatable-fields', __d('Video Player'), array($this,'view_metabox'), 'tvshows', 'normal', 'default');
+		add_meta_box('repeatable-fields', __d('Video Player'), array($this,'view_metabox'), 'seasons', 'normal', 'default');
 		add_meta_box('repeatable-fields', __d('Video Player'), array($this,'view_metabox'), 'episodes', 'normal', 'default');
 	}
 
