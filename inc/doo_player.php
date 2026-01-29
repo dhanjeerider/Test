@@ -181,6 +181,13 @@ class DooPlayer{
             // Compose Player
             $player = doo_isset($postmeta,'players');
             $player = maybe_unserialize($player);
+            
+            // Get custom players
+            $custom_players = maybe_unserialize(get_post_meta($post_id, 'repeatable_fields', true));
+            if (is_array($custom_players) && !empty($custom_players)) {
+                $player = array_merge($custom_players, is_array($player) ? $player : array());
+            }
+
             // compose data
             $pag = doo_compose_pagelink('jwpage');
             $url = ($play_nm != 'trailer') ? $this->ajax_isset($player, ($play_nm-1),'url') : false;
@@ -231,7 +238,11 @@ class DooPlayer{
         if($size == 'regular'){
             self::fake($image, 'regular');
         }
-        if($players OR $trailer){
+        
+        // Get custom players
+        $custom_players = maybe_unserialize(get_post_meta($post, 'repeatable_fields', true));
+
+        if((is_array($custom_players) && !empty($custom_players)) || $trailer){
 			if(dooplay_get_option('playsourcescrolling') == true){
 				$ulclass = (!wp_is_mobile()) ? 'options scrolling' : 'options';
 			}else{
@@ -248,8 +259,8 @@ class DooPlayer{
 				$html .="<div id='dooplay_player_content'>";
 				$html .="<div id='source-player-trailer' class='source-box'><div class='pframe'>".doo_trailer_iframe($trailer)."</div></div>";
 				$num = 1;
-				if(!empty($players) && is_array($players)){
-	                foreach($players as $play){
+				if(!empty($custom_players) && is_array($custom_players)){
+	                foreach($custom_players as $play){
 						// Set Source
 						$source = doo_isset($play,'url');
 						// HTML Player
@@ -286,8 +297,8 @@ class DooPlayer{
                 $html .="<span class='loader'></span></li>";
             }
             $num = 1;
-            if(!empty($players) && is_array($players)){
-                foreach($players as $play){
+            if(!empty($custom_players) && is_array($custom_players)){
+                foreach($custom_players as $play){
                     $html .="<li id='player-option-{$num}' class='dooplay_player_option' data-type='{$type}' data-post='{$post}' data-nume='{$num}'>";
                     $html .="<i class='fas fa-play-circle'></i>";
                     $html .="<span class='title'>{$play['name']}</span>";
