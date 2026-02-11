@@ -3,7 +3,7 @@
 import React from "react"
 
 import Link from 'next/link'
-import { LayoutDashboard, FileText, Settings, BarChart3, Upload, LogOut } from 'lucide-react'
+import { LayoutDashboard, FileText, Settings, BarChart3, Upload, LogOut, Zap } from 'lucide-react'
 
 export default function AdminLayout({
   children,
@@ -49,6 +49,14 @@ export default function AdminLayout({
           >
             <BarChart3 className="h-5 w-5" />
             Trending
+          </Link>
+
+          <Link
+            href="/admin/auto-publish"
+            className="flex items-center gap-3 rounded-lg px-4 py-2 text-blue-600 hover:bg-blue-50 font-medium"
+          >
+            <Zap className="h-5 w-5" />
+            AI Auto-Publish
           </Link>
 
           <Link

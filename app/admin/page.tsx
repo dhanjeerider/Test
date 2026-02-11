@@ -106,6 +106,12 @@ export default function AdminDashboard() {
             <Link href="/admin/posts/new">
               <Button className="w-full">Create New Post</Button>
             </Link>
+            <Link href="/admin/auto-publish">
+              <Button className="w-full bg-blue-600 hover:bg-blue-700">
+                <Zap className="mr-2 h-4 w-4" />
+                AI Auto-Publish
+              </Button>
+            </Link>
             <Link href="/admin/pages/new">
               <Button variant="outline" className="w-full bg-transparent">
                 Create New Page

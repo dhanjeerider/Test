@@ -37,10 +37,10 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     const body = await request.json()
     const { title, content, excerpt, featured_image_url, category, tags, status } = body
 
-    // Check ownership
+    // Check ownership and get current post data
     const { data: post } = await supabase
       .from('posts')
-      .select('author_id')
+      .select('*')
       .eq('id', params.id)
       .single()
 
@@ -49,19 +49,27 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 
     const slug = title ? generateSlug(title) : undefined
+    
+    // Handle published_at properly
+    let published_at = post.published_at
+    if (status === 'published' && !post.published_at) {
+      published_at = new Date().toISOString()
+    } else if (status === 'draft' || status === 'scheduled') {
+      published_at = null
+    }
 
     const { data, error } = await supabase
       .from('posts')
       .update({
         ...(title && { title }),
         ...(slug && { slug }),
-        ...(content && { content }),
+        ...(content !== undefined && { content }),
         ...(excerpt !== undefined && { excerpt }),
         ...(featured_image_url !== undefined && { featured_image_url }),
-        ...(category && { category }),
-        ...(tags && { tags }),
+        ...(category !== undefined && { category }),
+        ...(tags !== undefined && { tags }),
         ...(status && { status }),
-        ...(status === 'published' && !post?.published_at && { published_at: new Date().toISOString() }),
+        published_at,
         updated_at: new Date().toISOString(),
       })
       .eq('id', params.id)

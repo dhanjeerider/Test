@@ -69,8 +69,24 @@ export async function POST(request: NextRequest) {
 
     if (createError) {
       console.error('Create user error:', createError)
+      
+      // Provide more specific error messages
+      if (createError.code === '23505') {
+        return NextResponse.json(
+          { error: 'User with this email or username already exists' },
+          { status: 409 }
+        )
+      }
+      
+      if (createError.code === '42501') {
+        return NextResponse.json(
+          { error: 'Permission denied. Please check RLS policies in Supabase.' },
+          { status: 403 }
+        )
+      }
+      
       return NextResponse.json(
-        { error: 'Failed to create user. Please try again.' },
+        { error: `Failed to create user: ${createError.message || 'Please try again.'}` },
         { status: 500 }
       )
     }
